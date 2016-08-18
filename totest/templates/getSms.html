@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>jQuery EasyUI</title>
+    <link rel="stylesheet" type="text/css"
+          href="/statics/themes/bootstrap/easyui.css">
+    <script type="text/javascript" src="/statics/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="/statics/js/jquery.easyui.min.js"></script>
+    <script src="/statics/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<div>
+    <div class="iwater2Label">
+        <label for="name">===　iwater2环境(8091端口)　===</label>
+    </div>
+    <div class="iwater2">
+        <label for="name">　　　　　　手机号：</label>
+        <input
+                class="easyui-validatebox" type="text" id="Iwater2Phone"
+                name="Iwater2Phone" style="width:200px">
+        <label for="name">　　　　　　短信验证码：</label>
+        <input
+                class="easyui-validatebox" type="text" id="Iwater2Sms"
+                name="Iwater2Sms" style="width:200px">
+        <a href="#" class="easyui-linkbutton" onclick="getIwater2Sms()">计算</a>
+    </div>
+</div>
+<div>
+    <div class="iwater2TransferLabel">
+        <label for="name">===　iwater2Transfer环境(8091端口)　===</label>
+    </div>
+    <div class="iwater2Transfer">
+        <label for="name">　　　　　　手机号：</label>
+        <input
+                class="easyui-validatebox" type="text" id="Iwater2TransferPhone"
+                name="Iwater2TransferPhone" style="width:200px">
+        <label for="name">　　　　　　短信验证码：</label>
+        <input
+                class="easyui-validatebox" type="text" id="Iwater2TransferSms"
+                name="Iwater2TransferSms" style="width:200px">
+        <a href="#" class="easyui-linkbutton" onclick="getIwater2TransferSms()">计算</a>
+    </div>
+</div>
+<div>
+    <div class="iwater2DevLabel">
+        <label for="name">===　iwater2开发环境(9002端口)　===</label>
+    </div>
+    <div class="iwater2Dev">
+        <label for="name">　　　　　　手机号：</label>
+        <input
+                class="easyui-validatebox" type="text" id="Iwater2DevPhone"
+                name="Iwater2DevPhone" style="width:200px">
+        <label for="name">　　　　　　短信验证码：</label>
+        <input
+                class="easyui-validatebox" type="text" id="Iwater2DevSms"
+                name="Iwater2DevSms" style="width:200px">
+        <a href="#" class="easyui-linkbutton" onclick="getIwater2DevSms()">计算</a>
+    </div>
+</div>
+<script type="text/javascript">
+    //csrf认证生明处理
+    $.ajaxSetup({
+        data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+        }
+
+    });
+
+    function getIwater2Sms() {
+        //调试;
+        //debugger;
+        var phoneNumber = $('#Iwater2Phone').val();
+        $.ajax({
+            url: '/mockPlatform/tool/getSms',
+            data: {
+                'phoneNumber': phoneNumber
+            },
+            success: function (data) {
+                result　= data;
+                document.getElementById("Iwater2Sms").value = "";
+                document.getElementById("Iwater2Sms").value = result;
+            },
+            error: function () {
+                alert("获取失败！");
+            }
+        });
+    }
+
+    function getIwater2TransferSms() {
+        //调试;
+        //debugger;
+        var phoneNumber = $('#Iwater2TransferPhone').val();
+        $.ajax({
+            url: '/mockPlatform/tool/getSmsTransfer',
+            data: {
+                'phoneNumber': phoneNumber
+            },
+            success: function (data) {
+                result　= data;
+                document.getElementById("Iwater2TransferSms").value = "";
+                document.getElementById("Iwater2TransferSms").value = result;
+            },
+            error: function () {
+                alert("获取失败！");
+            }
+        });
+    }
+
+    function getIwater2DevSms() {
+        //调试;
+        //debugger;
+        var phoneNumber = $('#Iwater2DevPhone').val();
+        $.ajax({
+            url: '/mockPlatform/tool/getSmsDev',
+            data: {
+                'phoneNumber': phoneNumber
+            },
+            success: function (data) {
+                result　= data;
+                document.getElementById("Iwater2DevSms").value = "";
+                document.getElementById("Iwater2DevSms").value = result;
+            },
+            error: function () {
+                alert("获取失败！");
+            }
+        });
+    }
+</script>
+</body>
+</html>

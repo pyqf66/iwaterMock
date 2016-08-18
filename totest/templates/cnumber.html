@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>jQuery EasyUI</title>
+    <link rel="stylesheet" type="text/css"
+          href="/statics/themes/bootstrap/easyui.css">
+    <script type="text/javascript" src="/statics/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="/statics/js/jquery.easyui.min.js"></script>
+    <script src="/statics/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<div>
+    <!-- 添加单行文本框 -->
+    <div class="ArabicNum">
+        <label for="name">阿拉伯数字：</label>
+        <input
+                class="easyui-validatebox" type="text" id="ArabicNum"
+                name="ArabicNum" style="width:200px">
+    </div>
+    <div class="clear"></div>
+    <div class="ChsUpperNum">
+        <label for="name">中文大写数字：</label>
+        <input
+                class="easyui-validatebox" type="text" id="ChsUpperNum"
+                name="ChsUpperNum" disabled="disabled" style="width:200px">
+    </div>
+    <div class="clear"></div>
+    <div style="margin-left: 40%;">
+        <!-- 添加按钮 -->
+        <a href="#" class="easyui-linkbutton" onclick="convert()">转换</a>
+    </div>
+</div>
+<script type="text/javascript">
+    //csrf认证生明处理
+    $.ajaxSetup({
+        data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+        }
+
+    });
+
+    function convert() {
+        //调试;
+        //debugger;
+        var arabicNum = $('#ArabicNum').val();
+        $.ajax({
+            type: 'POST',
+            url: '/mockPlatform/tool/cnumber',
+            data: {'arabicNum': arabicNum},
+            success: function (data) {
+                //alert("生成成功！");
+                console.log(data);
+                console.log(typeof data);
+                {#                chsUpperNum = $.parseJSON(data).chsUpperNum;#}
+                {#                chsUpperNum=eval("(" + data + ")").chsUpperNum;#}
+                {#                console.log(chsUpperNum);#}
+                document.getElementById("ChsUpperNum").value = "";
+                document.getElementById("ChsUpperNum").value = data.chsUpperNum;
+            },
+            error: function () {
+                alert("生成失败！");
+            }
+        });
+    }
+</script>
+</body>
+</html>

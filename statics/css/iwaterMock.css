@@ -1,0 +1,141 @@
+@CHARSET "UTF-8";
+.ArabicNum{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 50%;
+    float: right;
+}
+
+.ChsUpperNum {
+    margin-bottom: 10px;
+    margin-right: 50%;
+    float: right;
+}
+.drinkLabel{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.DrinkPlan {
+    margin-bottom: 10px;
+}
+
+.Age {
+    margin-bottom: 10px;
+}
+
+.Weight {
+    margin-bottom: 10px;
+}
+
+.Sex {
+    margin-bottom: 10px;
+}
+
+.Job {
+    margin-bottom: 10px;
+}
+
+.DistanceDays {
+    margin-bottom: 10px;
+}
+
+.BirthDays {
+    margin-bottom: 10px;
+}
+
+.hydratingLabel {
+    margin-bottom: 10px;
+}
+
+.HydratingPlan {
+    margin-bottom: 10px;
+}
+
+.DecrementWeight {
+    margin-bottom: 10px;
+}
+
+.SportsType {
+    margin-bottom: 10px;
+}
+
+.SportsDistance {
+    margin-bottom: 10px;
+}
+
+.Temperature {
+    margin-bottom: 10px;
+}
+
+.Water {
+    margin-bottom: 10px;
+}
+
+.WeatherWater {
+    margin-bottom: 10px;
+    margin-left: 20px;
+    float: left;
+}
+
+.DrinkWater {
+    margin-bottom: 10px;
+    margin-left: 20px;
+    float: left;
+}
+
+.FillingWater {
+    margin-bottom: 10px;
+    margin-left: 20px;
+    float: left;
+}
+.TotalWater {
+    margin-bottom: 10px;
+    margin-left: 20px;
+    float: left;
+}
+
+.iwater2Label{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.iwater2{
+    margin-bottom: 10px;
+}
+
+.iwater2TransferLabel{
+    margin-bottom: 10px;
+}
+
+.iwater2Transfer{
+    margin-bottom: 10px;
+}
+
+.iwater2DevLabel{
+    margin-bottom: 10px;
+}
+
+.iwater2Dev{
+    margin-bottom: 10px;
+}
+
+.iwaterAPILabel{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.iwaterApi{
+    margin-bottom: 10px;
+    margin-left: 10%;
+    float: left;
+}
+.iwaterApiSave{
+    margin-left: 5%;
+    float: left;
+}
+
+.clear {
+    clear: both
+}
+
+

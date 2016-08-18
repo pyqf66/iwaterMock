@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>jQuery EasyUI</title>
+    <link rel="stylesheet" type="text/css"
+          href="/statics/themes/bootstrap/easyui.css">
+    <script type="text/javascript" src="/statics/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="/statics/js/jquery.easyui.min.js"></script>
+    <script src="/statics/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<div>
+    <div class="iwaterAPILabel">
+        <label for="name">^_^iwater环境切换</label>
+    </div>
+    <div class="iwaterApi">
+        <input
+                class="easyui-combobox" id="iwaterApi"
+                name="iwaterApi" >
+        </input>
+    </div>
+    <div class="iwaterApiSave">
+        <a href="#" class="easyui-linkbutton" onclick="save()">保存</a>
+    </div>
+</div>
+<script type="text/javascript">
+    //csrf认证生明处理
+    //debugger;
+    $.ajaxSetup({
+        data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+        }
+
+    });
+
+    $.ajax({
+        type: 'POST',
+        url: '/mockPlatform/kernal/queryIwaterApi',
+        data: {},
+        success: function (data) {
+            console.log(data.environment);
+            $('#iwaterApi').combobox("setValue",data.environment);
+        },
+        error: function () {
+            alert("生成失败！");
+        }
+
+    });
+
+    $('#iwaterApi').combobox(
+            {
+                url: '/mockPlatform/kernal/iwaterAPIJson',
+                valueField: 'url',
+                textField: 'environment',
+                //不可编辑状态
+                editable: false,
+                //自动高度适合
+                panelHeight: 'auto'
+            });
+
+    function save() {
+        //调试;
+        //debugger;
+        var environment = $('#iwaterApi').combobox("getText");
+        var url = $('#iwaterApi').combobox("getValue");
+        console.log(url)
+        console.log(environment);
+        var settings = new Object();
+        settings["url"]=url;
+        settings["environment"]=environment;
+        $.ajax({
+            type: 'POST',
+            url: '/mockPlatform/kernal/saveIwaterAPI',
+            data: {
+                'settings':JSON.stringify(settings)
+            },
+            success: function (data) {
+                alert("保存成功！");
+            },
+            error: function () {
+                alert("保存失败！");
+            }
+        });
+    }
+</script>
+</body>
+</html>

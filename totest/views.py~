@@ -1,0 +1,58 @@
+# -*- coding:utf-8 -*-
+import requests
+from django.http.response import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+import simplejson
+import logging
+
+logger = logging.getLogger("iwaterMock.app")
+
+
+@csrf_exempt
+def iwater_weather(request, rest_api):
+    # 获取rest链接参数
+    url = "http://123.57.47.236:8091"
+    logger.debug(url)
+    api = rest_api
+    logger.debug(api)
+    # 拼接真正请求的url
+    logger.info("请求方法为:" + str(request.method))
+    try:
+        if request.method == "POST":
+            #request_data = request.body.decode("utf-8")
+            request_data = request.GET.urlencode()
+            #request_data = request.GET
+            logger.debug(request_data)
+            logger.debug(request.POST)
+            logger.debug(request.GET)
+            logger.debug(request.GET.urlencode())
+            # if api == "v1/waterquality/nt/getWeatherCond/v1.json":
+            #     resp = {"status": 0,
+            #             "data": {"code": "9", "qlty": "优", "drinkSuggest": "饮用20度左右的凉白开水和蔬果汁都能达到效果", "city": "北京",
+            #                      "temperature": "22℃", "weather": "20~28℃", "high": "28", "expirationTime": "1624568",
+            #                      "humidity": "74%", "aqi": "48"}, "message": "操作成功"}
+            #     return HttpResponse(simplejson.dumps(resp), ensure_ascii=False)
+            # 不满足条件则直接请求真实crm接口
+            rest_absapi = url + "/" + rest_api+"?"+request_data
+            logger.debug(rest_absapi)
+            httpObject = requests.post(url=rest_absapi)
+            logger.debug(httpObject.content)
+            result = httpObject.json()
+    except:
+        logger.exception("POST请求错误如下：")
+
+    try:
+        if request.method == "GET":
+            request_data = request.GET.urlencode()
+            if api == "v1/waterquality/nt/getWeatherCond/v1.json":
+                resp = {"status": 0,
+                        "data": {"code": "9", "qlty": "优", "drinkSuggest": "饮用20度左右的凉白开水和蔬果汁都能达到效果", "city": "北京",
+                                 "temperature": "22℃", "weather": "20~28℃", "high": "28", "expirationTime": "1624568",
+                                 "humidity": "74%", "aqi": "48"}, "message": "操作成功"}
+                return HttpResponse(simplejson.dumps(resp, ensure_ascii=False))
+            rest_absapi = url + "/" + rest_api + "?" + request_data
+            httpObject = requests.get(url=rest_absapi)
+            result = httpObject.json()
+        return HttpResponse(result)
+    except:
+        logger.exception("GET请求错误如下：")
