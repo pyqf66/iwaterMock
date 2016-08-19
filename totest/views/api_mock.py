@@ -47,7 +47,7 @@ def iwater_mock(request, rest_api):
         headers = {"Content-Type": content_type}
     elif "multipart/form-data;" in content_type and request_data:
         headers = {"Content-Type": content_type}
-        request_data={"file":request_data}
+        request_data = {"file": request_data}
     else:
         headers = {}
     # 将获取IwaterApi对象，需要mock返回方法对象，不需要mock返回0
@@ -68,7 +68,7 @@ def iwater_mock(request, rest_api):
                 except:
                     logger.debug("请求的数据为：" + str(request_data))
             logger.debug("请求的请求头为：" + str(content_type))
-            logger.debug("请求数据request_data数据类型为"+str(type(request_data)))
+            logger.debug("请求数据request_data数据类型为" + str(type(request_data)))
             if "multipart/form-data;" in content_type:
                 http_object = requests.post(url=rest_abs_api, files=request_data, headers=headers)
             else:
@@ -92,15 +92,19 @@ def iwater_mock(request, rest_api):
             rest_abs_api = url + full_path[11:]
             logger.debug("真实请求路径rest_abs_api=" + str(parse.unquote(rest_abs_api)))
             http_object = requests.get(url=rest_abs_api)
+            mock_content_type = http_object.headers["Content-Type"]
+            response_content_type_dict = ["image/webp", "text/css", "application/javascript", "image/gif", "image/png"]
             try:
                 result = simplejson.dumps(http_object.json(), ensure_ascii=False)
-                # result = simplejson.dumps(http_object.json())
                 logger.debug("最终响应结果：" + str(result))
             except:
                 result = http_object.content
                 logger.debug("最终响应结果：" + str(result))
-                # return render_to_response(result, context_instance=RequestContext(request))
-                return HttpResponse(result)
+                logger.debug("content_type=" + str(http_object.headers))
+                if mock_content_type in response_content_type_dict:
+                    return HttpResponse(result, content_type=mock_content_type)
+                else:
+                    return HttpResponse(result)
             logger.debug("最终响应结果：" + str(result))
     except:
         logger.exception("GET请求错误如下：")

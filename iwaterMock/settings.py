@@ -138,7 +138,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(STATICFILES_DIRS + '/logs/', 'all.log'),  # 或者直接写路径：'c:\logs\all.log',
-            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'maxBytes': 1024 * 1024 * 1024,  # 5 MB
             'backupCount': 5,
             'formatter': 'standard',
         },
@@ -152,7 +152,7 @@ LOGGING = {
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(STATICFILES_DIRS + '/logs/', 'script.log'),
             # 或者直接写路径：'filename':'c:\logs\request.log''
-            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'maxBytes': 1024 * 1024 * 1024,  # 5 MB
             'backupCount': 5,
             'formatter': 'standard',
         },
