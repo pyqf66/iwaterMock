@@ -64,7 +64,10 @@ def iwater_mock(request, rest_api):
             logger.debug("真实请求路径rest_abs_api=" + str(parse.unquote(rest_abs_api)))
             if request_data:
                 try:
-                    logger.debug("请求的数据为：" + str(parse.unquote(request_data)))
+                    if type(request_data) == bytes:
+                        logger.debug("请求的数据为：" + str(parse.unquote(request_data.decode('utf-8'))))
+                    else:
+                        logger.debug("请求的数据为：" + str(parse.unquote(request_data)))
                 except:
                     logger.debug("请求的数据为：" + str(request_data))
             logger.debug("请求的请求头为：" + str(content_type))
@@ -93,7 +96,6 @@ def iwater_mock(request, rest_api):
             logger.debug("真实请求路径rest_abs_api=" + str(parse.unquote(rest_abs_api)))
             http_object = requests.get(url=rest_abs_api)
             mock_content_type = http_object.headers["Content-Type"]
-            response_content_type_dict = ["image/webp", "text/css", "application/javascript", "image/gif", "image/png"]
             try:
                 result = simplejson.dumps(http_object.json(), ensure_ascii=False)
                 logger.debug("最终响应结果：" + str(result))
@@ -101,10 +103,7 @@ def iwater_mock(request, rest_api):
                 result = http_object.content
                 logger.debug("最终响应结果：" + str(result))
                 logger.debug("content_type=" + str(http_object.headers))
-                if mock_content_type in response_content_type_dict:
-                    return HttpResponse(result, content_type=mock_content_type)
-                else:
-                    return HttpResponse(result)
+                return HttpResponse(result, content_type=mock_content_type)
             logger.debug("最终响应结果：" + str(result))
     except:
         logger.exception("GET请求错误如下：")
