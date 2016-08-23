@@ -13,7 +13,7 @@ import simplejson
 import logging
 from totest.models import mock_shift
 from common.iwater.get_mock_shift import get_mock_shift
-
+from common.util.TimeCalc import TimeCalc
 logger = logging.getLogger("iwaterMock.app")
 
 @csrf_exempt
@@ -76,9 +76,9 @@ def iwater_mock(request, rest_api):
             logger.debug("请求的请求头为：" + str(content_type))
             logger.debug("请求数据request_data数据类型为" + str(type(request_data)))
             if "multipart/form-data;" in content_type:
-                http_object = requests.post(url=rest_abs_api, files=request_data, headers=headers)
+                http_object = TimeCalc.time_clac(requests.post(url=rest_abs_api, files=request_data, headers=headers),rest_api)
             else:
-                http_object = requests.post(url=rest_abs_api, data=request_data, headers=headers)
+                http_object = TimeCalc.time_clac(requests.post(url=rest_abs_api, data=request_data, headers=headers),rest_api)
             try:
                 result = simplejson.dumps(http_object.json(), ensure_ascii=False)
             except:
@@ -97,7 +97,7 @@ def iwater_mock(request, rest_api):
                 return HttpResponse(simplejson.dumps(api_mock(), ensure_ascii=False))
             rest_abs_api = url + full_path[11:]
             logger.debug("真实请求路径rest_abs_api=" + str(parse.unquote(rest_abs_api)))
-            http_object = requests.get(url=rest_abs_api)
+            http_object = TimeCalc.time_clac(requests.get(url=rest_abs_api),rest_api)
             mock_content_type = http_object.headers["Content-Type"]
             try:
                 result = simplejson.dumps(http_object.json(), ensure_ascii=False)

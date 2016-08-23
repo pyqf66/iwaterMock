@@ -147,6 +147,15 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'standard'
         },
+        'time_calc':{
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(STATICFILES_DIRS + '/logs/', 'time.log'),  # 或者直接写路径：'c:\logs\all.log',
+            'maxBytes': 1024 * 1024 * 1024,  # 5 MB
+            'backupCount': 5,
+            'formatter': 'standard',
+        }
+        ,
         'request_handler': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
@@ -177,6 +186,12 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True
         },
+        'timeCale':{
+            'handlers': ['time_calc', 'console'],
+            'level': 'DEBUG',
+            'propagate': True
+        }
+        ,
         'django.request': {
             'handlers': ['request_handler'],
             'level': 'DEBUG',
