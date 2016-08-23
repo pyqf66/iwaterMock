@@ -11,15 +11,17 @@ from django.core.paginator import Paginator
 from common.iwater.IwaterApi import IwaterApi
 import simplejson
 import logging
+from totest.models import mock_shift
+from common.iwater.get_mock_shift import get_mock_shift
 
 logger = logging.getLogger("iwaterMock.app")
-
 
 @csrf_exempt
 def iwater_mock(request, rest_api):
     url = None
     result = None
     request_data = None
+    api_mock = 0
     # 设置请求的url
     # test为测试环境
     # dev为开发环境
@@ -52,7 +54,8 @@ def iwater_mock(request, rest_api):
         headers = {}
     # 将获取IwaterApi对象，需要mock返回方法对象，不需要mock返回0
     mock_object = IwaterApi()
-    api_mock = mock_object.mock_dict(rest_api)
+    if get_mock_shift() == '1':
+        api_mock = mock_object.mock_dict(rest_api)
     logger.info("是否需要mock的返回值：" + str(api_mock))
     logger.info("请求方法为:" + str(request.method))
     try:
@@ -109,3 +112,4 @@ def iwater_mock(request, rest_api):
         logger.exception("GET请求错误如下：")
 
     return HttpResponse(result)
+

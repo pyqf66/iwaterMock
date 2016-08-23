@@ -33,3 +33,6 @@ class hydrating_plan(models.Model):
 class iwater_api(models.Model):
     environment = models.CharField(max_length=10, null=True)
     url = models.CharField(max_length=50, null=True)
+
+class mock_shift(models.Model):
+    is_open = models.CharField(max_length=10)

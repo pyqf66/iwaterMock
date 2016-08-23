@@ -37,6 +37,10 @@ urlpatterns = [
     url(r'^mockPlatform/kernal/iwaterAPIJson$', "totest.views.iwater_api_json"),
     url(r'^mockPlatform/kernal/saveIwaterAPI$', "totest.views.save_iwater_api"),
     url(r'^mockPlatform/kernal/queryIwaterApi$', "totest.views.query_iwater_api"),
+    url(r'^mockPlatform/kernal/mockPage$', "totest.views.mock_page"),
+    url(r'^mockPlatform/kernal/mockShiftJson$', "totest.views.mock_shift_json"),
+    url(r'^mockPlatform/kernal/saveMockShift$', "totest.views.save_mock_shift"),
+    url(r'^mockPlatform/kernal/queryMockShift$', "totest.views.query_mock_shift"),
     url(r'^iwaterMock/(.+)', "totest.views.iwater_mock"),
     url(r'^statics/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATICFILES_DIRS}),
 ]

@@ -5,3 +5,4 @@ from totest.views.tool_cnumber import *
 from totest.views.tool_drink_calc import *
 from totest.views.get_sms import *
 from totest.views.iwater_api import *
+from totest.views.mock_shift import *

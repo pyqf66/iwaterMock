@@ -34,6 +34,11 @@ def menu(request):
             "attributes": {
                 "url": "/mockPlatform/kernal/iwaterAPIPage"
             }
+        }, {
+            "text": "mock_shift",
+            "attributes": {
+                "url": "/mockPlatform/kernal/mockPage"
+            }
         }]
     }, {
         "id": 2,
