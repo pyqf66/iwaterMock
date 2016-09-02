@@ -50,7 +50,7 @@ def save_iwater_api(request):
 @csrf_exempt
 def query_iwater_api(request):
     iwater_api_json_data = iwater_api.objects.all()
-    iwater_api_json_dict= dict()
+    iwater_api_json_dict = dict()
     indexNum = 0
     # 数据库读取数据并插入字典
     for i in iwater_api_json_data:

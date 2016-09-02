@@ -9,6 +9,7 @@ class api_mock(models.Model):
     api_id = models.AutoField(primary_key=True)
     api_name = models.CharField(max_length=50, null=True)
     api_resp_json = models.TextField(null=True)
+    is_open = models.CharField(max_length=10)
 
 
 class drink_plan(models.Model):
@@ -30,9 +31,11 @@ class hydrating_plan(models.Model):
     temperature = models.CharField(max_length=10, null=True)
     water = models.CharField(max_length=10, null=True)
 
+
 class iwater_api(models.Model):
     environment = models.CharField(max_length=10, null=True)
     url = models.CharField(max_length=50, null=True)
+
 
 class mock_shift(models.Model):
     is_open = models.CharField(max_length=10)

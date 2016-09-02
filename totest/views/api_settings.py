@@ -33,6 +33,7 @@ def api_data_json_response(request):
             interface_settings_json_list[indexNum]["api_id"] = i.api_id
             interface_settings_json_list[indexNum]["api_name"] = i.api_name
             interface_settings_json_list[indexNum]["api_resp_json"] = i.api_resp_json
+            interface_settings_json_list[indexNum]["is_open"] = i.is_open
             indexNum = indexNum + 1
         paging_object = Paginator(interface_settings_json_list, rows)
         results = paging_object.page(page).object_list
@@ -60,7 +61,8 @@ def api_mock_setting(request):
                     logger.info(received_json_data)
                     logger.info(i)
                     http_interface_info_db = api_mock(api_name=i["api_name"],
-                                                      api_resp_json=i["api_resp_json"])
+                                                      api_resp_json=i["api_resp_json"],
+                                                      is_open=i["is_open"])
                     http_interface_info_db.save()
             if "deleted" in datalist:
                 for i in list(simplejson.loads(datalist["deleted"])):
@@ -71,7 +73,7 @@ def api_mock_setting(request):
                     # 更新数据
                     api_mock.objects.filter(api_id=i["api_id"]).update(
                             api_id=i["api_id"], api_name=i["api_name"],
-                            api_resp_json=i["api_resp_json"])
+                            api_resp_json=i["api_resp_json"],is_open=i["is_open"])
             result = simplejson.dumps(result)
             return HttpResponse(result)
         else:
