@@ -11,7 +11,7 @@ logger = logging.getLogger("iwaterMock.app")
 
 
 def cnumber_page(request):
-    return render_to_response("cnumber.html", context_instance=RequestContext(request))
+    return render_to_response("cnumber.html", context=RequestContext(request))
 
 
 @csrf_exempt

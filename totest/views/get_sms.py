@@ -13,7 +13,7 @@ logger = logging.getLogger("iwaterMock.app")
 
 
 def get_sms_page(request):
-    return render_to_response("getSms.html", context_instance=RequestContext(request))
+    return render_to_response("getSms.html", context=RequestContext(request))
 
 @csrf_exempt
 def get_sms(request):

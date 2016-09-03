@@ -13,11 +13,11 @@ logger = logging.getLogger("iwaterMock.app")
 
 
 def index_text(request):
-    return render_to_response("tmp.html", context_instance=RequestContext(request))
+    return render_to_response("tmp.html", context=RequestContext(request))
 
 
 def index(request):
-    return render_to_response("index.html", context_instance=RequestContext(request))
+    return render_to_response("index.html", context=RequestContext(request))
 
 
 def menu(request):

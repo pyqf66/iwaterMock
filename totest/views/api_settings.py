@@ -13,7 +13,7 @@ logger = logging.getLogger("iwaterMock.app")
 
 
 def api_mock_settings_page(request):
-    return render_to_response("apiSettingsTreegrid.html", context_instance=RequestContext(request))
+    return render_to_response("apiSettingsTreegrid.html", context=RequestContext(request))
 
 
 def api_data_json_response(request):

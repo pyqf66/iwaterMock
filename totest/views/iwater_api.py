@@ -19,7 +19,7 @@ logger = logging.getLogger("iwaterMock.app")
 
 @csrf_exempt
 def iwater_api_page(request):
-    return render_to_response("iwaterApi.html", context_instance=RequestContext(request))
+    return render_to_response("iwaterApi.html", context=RequestContext(request))
 
 
 @csrf_exempt

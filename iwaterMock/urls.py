@@ -13,34 +13,37 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+
 from django.conf.urls import include, url
 from django.contrib import admin
+import django.views.static
 from iwaterMock import settings
+from totest import views
 
 urlpatterns = [
-    url(r'^testInstall$', "totest.views.index_text"),
-    url(r'^$', "totest.views.index"),
-    url(r'^mockPlatform/menu.json', "totest.views.menu"),
-    url(r'^mockPlatform/apiMock/settingsPage', "totest.views.api_mock_settings_page"),
-    url(r'^mockPlatform/apiMock/settingsData', "totest.views.api_data_json_response"),
-    url(r'^mockPlatform/apiMock/apiSet', "totest.views.api_mock_setting"),
-    url(r'^mockPlatform/tool/cnumberPage', "totest.views.cnumber_page"),
-    url(r'^mockPlatform/tool/cnumber', "totest.views.tool_cnumber"),
-    url(r'^mockPlatform/tool/drinkCalcPage', "totest.views.drink_calc_page"),
-    url(r'^mockPlatform/tool/getWaterSettings', "totest.views.get_water_setting"),
-    url(r'^mockPlatform/tool/drinkCalc', "totest.views.drink_calc"),
-    url(r'^mockPlatform/tool/getSmsPage$', "totest.views.get_sms_page"),
-    url(r'^mockPlatform/tool/getSms$', "totest.views.get_sms"),
-    url(r'^mockPlatform/tool/getSmsDev$', "totest.views.get_sms_dev"),
-    url(r'^mockPlatform/tool/getSmsTransfer$', "totest.views.get_sms_transfer"),
-    url(r'^mockPlatform/kernal/iwaterAPIPage$', "totest.views.iwater_api_page"),
-    url(r'^mockPlatform/kernal/iwaterAPIJson$', "totest.views.iwater_api_json"),
-    url(r'^mockPlatform/kernal/saveIwaterAPI$', "totest.views.save_iwater_api"),
-    url(r'^mockPlatform/kernal/queryIwaterApi$', "totest.views.query_iwater_api"),
-    url(r'^mockPlatform/kernal/mockPage$', "totest.views.mock_page"),
-    url(r'^mockPlatform/kernal/mockShiftJson$', "totest.views.mock_shift_json"),
-    url(r'^mockPlatform/kernal/saveMockShift$', "totest.views.save_mock_shift"),
-    url(r'^mockPlatform/kernal/queryMockShift$', "totest.views.query_mock_shift"),
-    url(r'^iwaterMock/(.+)', "totest.views.iwater_mock"),
-    url(r'^statics/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATICFILES_DIRS}),
+    url(r'^testInstall$', views.index_text),
+    url(r'^$', views.index),
+    url(r'^mockPlatform/menu.json', views.menu),
+    url(r'^mockPlatform/apiMock/settingsPage', views.api_mock_settings_page),
+    url(r'^mockPlatform/apiMock/settingsData', views.api_data_json_response),
+    url(r'^mockPlatform/apiMock/apiSet', views.api_mock_setting),
+    url(r'^mockPlatform/tool/cnumberPage', views.cnumber_page),
+    url(r'^mockPlatform/tool/cnumber', views.tool_cnumber),
+    url(r'^mockPlatform/tool/drinkCalcPage', views.drink_calc_page),
+    url(r'^mockPlatform/tool/getWaterSettings', views.get_water_setting),
+    url(r'^mockPlatform/tool/drinkCalc', views.drink_calc),
+    url(r'^mockPlatform/tool/getSmsPage$', views.get_sms_page),
+    url(r'^mockPlatform/tool/getSms$', views.get_sms),
+    url(r'^mockPlatform/tool/getSmsDev$', views.get_sms_dev),
+    url(r'^mockPlatform/tool/getSmsTransfer$', views.get_sms_transfer),
+    url(r'^mockPlatform/kernal/iwaterAPIPage$', views.iwater_api_page),
+    url(r'^mockPlatform/kernal/iwaterAPIJson$', views.iwater_api_json),
+    url(r'^mockPlatform/kernal/saveIwaterAPI$', views.save_iwater_api),
+    url(r'^mockPlatform/kernal/queryIwaterApi$', views.query_iwater_api),
+    url(r'^mockPlatform/kernal/mockPage$', views.mock_page),
+    url(r'^mockPlatform/kernal/mockShiftJson$', views.mock_shift_json),
+    url(r'^mockPlatform/kernal/saveMockShift$', views.save_mock_shift),
+    url(r'^mockPlatform/kernal/queryMockShift$', views.query_mock_shift),
+    url(r'^iwaterMock/(.+)', views.iwater_mock),
+    url(r'^statics/(?P<path>.*)$', django.views.static.serve, {'document_root': settings.STATICFILES_DIRS}),
 ]

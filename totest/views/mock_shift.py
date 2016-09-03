@@ -18,7 +18,7 @@ logger = logging.getLogger("iwaterMock.app")
 
 @csrf_exempt
 def mock_page(request):
-    return render_to_response("mockShift.html", context_instance=RequestContext(request))
+    return render_to_response("mockShift.html", context=RequestContext(request))
 
 
 @csrf_exempt

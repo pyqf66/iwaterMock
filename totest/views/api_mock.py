@@ -107,7 +107,7 @@ def iwater_mock(request, rest_api):
             except:
                 result = http_object.content.decode("utf-8")
                 logger.debug(api_name + "接口:最终响应结果：" + str(result))
-                return render_to_response(result, context_instance=RequestContext(request))
+                return render_to_response(result, context=RequestContext(request))
             logger.debug(api_name + "接口:最终响应结果：" + str(result))
     except:
         logger.exception(api_name + "接口:POST请求错误如下：")
