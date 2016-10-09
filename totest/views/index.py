@@ -19,7 +19,7 @@ def index_text(request):
 def index(request):
     return render_to_response("index.html", context=RequestContext(request))
 
-
+@csrf_exempt
 def menu(request):
     menu_list = [{
         "id": 1,
@@ -38,6 +38,11 @@ def menu(request):
             "text": "mock_shift",
             "attributes": {
                 "url": "/mockPlatform/kernal/mockPage"
+            }
+        }, {
+            "text": "mock_any_api_manual",
+            "attributes": {
+                "url": "/mockPlatform/apiMock/mockAnyApiManualPage"
             }
         }]
     }, {

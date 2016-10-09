@@ -1,5 +1,5 @@
 @CHARSET "UTF-8";
-.ArabicNum{
+.ArabicNum {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-right: 50%;
@@ -11,7 +11,8 @@
     margin-right: 50%;
     float: right;
 }
-.drinkLabel{
+
+.drinkLabel {
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -89,63 +90,82 @@
     margin-left: 20px;
     float: left;
 }
+
 .TotalWater {
     margin-bottom: 10px;
     margin-left: 20px;
     float: left;
 }
 
-.iwater2Label{
+.iwater2Label {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.iwater2{
+.iwater2 {
     margin-bottom: 10px;
 }
 
-.iwater2TransferLabel{
+.iwater2TransferLabel {
     margin-bottom: 10px;
 }
 
-.iwater2Transfer{
+.iwater2Transfer {
     margin-bottom: 10px;
 }
 
-.iwater2DevLabel{
+.iwater2DevLabel {
     margin-bottom: 10px;
 }
 
-.iwater2Dev{
+.iwater2Dev {
     margin-bottom: 10px;
 }
 
-.iwaterAPILabel{
+.iwaterAPILabel {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-.iwaterApi{
+
+.iwaterApi {
     margin-bottom: 10px;
     margin-left: 10%;
     float: left;
 }
-.iwaterApiSave{
+
+.iwaterApiSave {
     margin-left: 5%;
     float: left;
 }
 
-.mockShiftLabel{
+.mockShiftLabel {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-.mockShift{
+
+.mockShift {
     margin-bottom: 10px;
     margin-left: 10%;
     float: left;
 }
-.mockShiftSave{
+
+.mockShiftSave {
     margin-left: 5%;
     float: left;
+}
+
+.mockAnyApiManualLabel {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mockAnyApiManual {
+    margin-bottom: 10px;
+    margin-left: 10%;
+}
+
+.mockAnyApiManualSave {
+    margin-left: 30%;
 }
 
 .clear {

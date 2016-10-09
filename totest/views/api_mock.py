@@ -34,14 +34,12 @@ def iwater_mock(request, rest_api):
     # prod为生产环境
     url_data = iwater_api.objects.all()
 
-
     for i in url_data:
         url = i.url
     logger.debug(api_name + "接口:真实服务器url=" + str(url))
     full_path = request.get_full_path()
     logger.debug(api_name + "接口:全路径的数据类型为" + str(type(full_path)))
     logger.debug(api_name + "接口:完整请求路径full_path=" + str(parse.unquote(full_path)))
-
 
     # 不包含问号的为body风格请求，否则认为是get请求或get风格的post请求
     if "?" not in full_path:
@@ -54,7 +52,6 @@ def iwater_mock(request, rest_api):
     logger.debug(api_name + "接口:请求的编码为：" + str(request.encoding))
     logger.debug(api_name + "接口:rest风格链接=" + str(rest_api))
 
-
     # 判断请求头并插入正确的请求头
     content_type = request.META["CONTENT_TYPE"]
     if "application/x-www-form-urlencoded" in content_type and request_data:
@@ -65,22 +62,19 @@ def iwater_mock(request, rest_api):
     else:
         headers = {}
 
-
     # 将获取IwaterApi对象，需要mock返回方法对象，不需要mock返回0
     mock_object = IwaterApi()
     if get_mock_shift() == '1':
-        api_mock = mock_object.mock_dict(api_name)
+        result_list = mock_object.get_mock_value_list(api_name)
     logger.info(api_name + "接口:是否需要mock的返回值：" + str(api_mock))
     logger.info(api_name + "接口:请求方法为:" + str(request.method))
-
 
     try:
         if request.method == "POST":
             logger.debug(api_name + "接口:进入POST方法!")
             # 需要mock则mock，不需要mock则直接跳过
-            if api_mock != 0:
+            if result_list != 0:
                 logger.debug(api_name + "接口:使用mock!")
-                result_list = api_mock()
                 api_is_open = result_list[1]
                 logger.debug(api_name + "接口:子开关为" + str(api_is_open))
                 if api_is_open == 1:
@@ -112,14 +106,12 @@ def iwater_mock(request, rest_api):
     except:
         logger.exception(api_name + "接口:POST请求错误如下：")
 
-
     try:
         if request.method == "GET":
             logger.debug(api_name + "接口:进入GET方法!")
             # 需要mock则mock，不需要mock则直接跳过
-            if api_mock != 0:
+            if result_list != 0:
                 logger.debug(api_name + "接口:使用mock!")
-                result_list = api_mock()
                 api_is_open = result_list[1]
                 logger.debug(api_name + "接口:子开关为" + str(api_is_open))
                 if api_is_open == 1:
@@ -139,6 +131,5 @@ def iwater_mock(request, rest_api):
             logger.debug(api_name + "接口:最终响应结果：" + str(result))
     except:
         logger.exception(api_name + "接口:GET请求错误如下：")
-
 
     return HttpResponse(result)

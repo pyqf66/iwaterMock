@@ -11,7 +11,10 @@ class TimeCalc(object):
 
     @staticmethod
     def time_clac(instance_objects, interface):
-        api = interface.split('/')[-2]
+        try:
+            api = interface.split('/')[-2]
+        except:
+            api = interface.split('/')[-1]
         start = time.time()
         result = instance_objects
         end = time.time()

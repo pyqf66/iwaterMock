@@ -11,11 +11,12 @@ import logging
 
 logger = logging.getLogger("iwaterMock.app")
 
-
+@csrf_exempt
 def api_mock_settings_page(request):
     return render_to_response("apiSettingsTreegrid.html", context=RequestContext(request))
 
 
+@csrf_exempt
 def api_data_json_response(request):
     try:
         paging_data = request.GET
@@ -47,6 +48,7 @@ def api_data_json_response(request):
         logger.exception(u"测试接口设置页面分页错误如下:")
 
 
+@csrf_exempt
 def api_mock_setting(request):
     try:
         result = "success!!!"

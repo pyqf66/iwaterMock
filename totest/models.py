@@ -39,3 +39,6 @@ class iwater_api(models.Model):
 
 class mock_shift(models.Model):
     is_open = models.CharField(max_length=10)
+
+class mock_any_api_manual(models.Model):
+    response_content = models.TextField(null=True)
