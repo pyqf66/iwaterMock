@@ -10,6 +10,7 @@ class api_mock(models.Model):
     api_name = models.CharField(max_length=50, null=True)
     api_resp_json = models.TextField(null=True)
     is_open = models.CharField(max_length=10)
+    api_no = models.CharField(max_length=50, null=True)
 
 
 class drink_plan(models.Model):

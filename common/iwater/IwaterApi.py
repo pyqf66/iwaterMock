@@ -1,8 +1,10 @@
 # -*- coding:utf-8 -*-
+# 本工程所有post请求参数格式均类似为requestPara={"platform":"baidu","device":"MX5"}
 from totest.models import api_mock
 import simplejson
 from django.http.response import HttpResponse
 import logging
+from urllib import parse
 
 logger = logging.getLogger("iwaterMock.app")
 
@@ -11,8 +13,8 @@ class IwaterApi(object):
     def __init__(self):
         pass
 
-    def get_mock_value_list(self, api_name):
-        api_object = api_mock.objects.filter(api_name=api_name)
+    def get_mock_value_list(self, api_name, api_no):
+        api_object = api_mock.objects.filter(api_name=api_name).filter(api_no=api_no)
         # 判断数据库里是否查询到了对应api_name的数据
         if api_object.count() != 0:
             for i in list(api_object):
@@ -31,3 +33,21 @@ class IwaterApi(object):
         except:
             api = rest_api_list[-1]
         return api
+
+    @staticmethod
+    def get_api_no(request_data):
+        if type(request_data) == bytes:
+            data = request_data.decode("utf-8")
+        else:
+            data = request_data
+        api_no = None
+        try:
+            api_no = simplejson.loads(data)["command"]
+        except:
+            try:
+                api_no_list = parse.parse_qsl(data)
+                api_no_dict = dict(api_no_list)
+                api_no = simplejson.loads(api_no_dict["requestPara"])["command"]
+            except:
+                api_no = ""
+        return api_no

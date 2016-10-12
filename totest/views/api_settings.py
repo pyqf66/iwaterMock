@@ -11,6 +11,7 @@ import logging
 
 logger = logging.getLogger("iwaterMock.app")
 
+
 @csrf_exempt
 def api_mock_settings_page(request):
     return render_to_response("apiSettingsTreegrid.html", context=RequestContext(request))
@@ -32,6 +33,7 @@ def api_data_json_response(request):
         for i in interface_settings_json_data.order_by("-api_id"):
             interface_settings_json_list.append({})
             interface_settings_json_list[indexNum]["api_id"] = i.api_id
+            interface_settings_json_list[indexNum]["api_no"] = i.api_no
             interface_settings_json_list[indexNum]["api_name"] = i.api_name
             interface_settings_json_list[indexNum]["api_resp_json"] = i.api_resp_json
             interface_settings_json_list[indexNum]["is_open"] = i.is_open
@@ -64,7 +66,8 @@ def api_mock_setting(request):
                     logger.info(i)
                     http_interface_info_db = api_mock(api_name=i["api_name"],
                                                       api_resp_json=i["api_resp_json"],
-                                                      is_open=i["is_open"])
+                                                      is_open=i["is_open"],
+                                                      api_no=i["api_no"])
                     http_interface_info_db.save()
             if "deleted" in datalist:
                 for i in list(simplejson.loads(datalist["deleted"])):
@@ -74,8 +77,8 @@ def api_mock_setting(request):
                 for i in list(simplejson.loads(datalist["updated"])):
                     # 更新数据
                     api_mock.objects.filter(api_id=i["api_id"]).update(
-                            api_id=i["api_id"], api_name=i["api_name"],
-                            api_resp_json=i["api_resp_json"],is_open=i["is_open"])
+                        api_id=i["api_id"], api_name=i["api_name"],api_no=i["api_no"],
+                        api_resp_json=i["api_resp_json"], is_open=i["is_open"],)
             result = simplejson.dumps(result)
             return HttpResponse(result)
         else:
