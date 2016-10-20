@@ -178,7 +178,8 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['default', 'console'],
-            'level': 'DEBUG',
+            # 不可以设置成debug
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
             'propagate': False
         },
         'iwaterMock.app': {

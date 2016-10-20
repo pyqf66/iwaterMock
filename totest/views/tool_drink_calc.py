@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 import requests
+from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -13,11 +14,13 @@ import logging
 
 logger = logging.getLogger("iwaterMock.app")
 
-
+@login_required(login_url="/")
+@csrf_exempt
 def drink_calc_page(request):
     return render_to_response("drinkCalc.html", context=RequestContext(request))
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def get_water_setting(request):
     drink_plan_settings = drink_plan.objects.all()
@@ -46,6 +49,7 @@ def get_water_setting(request):
     return HttpResponse(result, content_type="application/json")
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def drink_calc(request):
     try:

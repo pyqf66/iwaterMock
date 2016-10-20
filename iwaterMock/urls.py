@@ -21,10 +21,10 @@ from totest import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.login),
-    url(r'^mockPlatform/loginCheck', views.login_check),
+    url(r'^$', views.iwater_login),
+    url(r'^mockPlatform/logout', views.iwater_logout),
+    url(r'^mockPlatform/loginCheck', views.iwater_login_check),
     url(r'^mockPlatform/index', views.index),
-    url(r'^mockPlatform/menu.json', views.menu),
     url(r'^mockPlatform/menu.json', views.menu),
     url(r'^mockPlatform/apiMock/settingsPage', views.api_mock_settings_page),
     url(r'^mockPlatform/apiMock/settingsData', views.api_data_json_response),

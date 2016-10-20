@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 import requests
+from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -12,11 +13,13 @@ import logging
 logger = logging.getLogger("iwaterMock.app")
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def api_mock_settings_page(request):
     return render_to_response("apiSettingsTreegrid.html", context=RequestContext(request))
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def api_data_json_response(request):
     try:
@@ -50,6 +53,7 @@ def api_data_json_response(request):
         logger.exception(u"测试接口设置页面分页错误如下:")
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def api_mock_setting(request):
     try:

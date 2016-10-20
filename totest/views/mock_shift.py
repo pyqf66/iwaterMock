@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 from urllib import parse
 import requests
+from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -15,12 +16,13 @@ from totest.models import mock_shift
 
 logger = logging.getLogger("iwaterMock.app")
 
-
+@login_required(login_url="/")
 @csrf_exempt
 def mock_page(request):
     return render_to_response("mockShift.html", context=RequestContext(request))
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def mock_shift_json(request):
     api_list = [{
@@ -33,6 +35,7 @@ def mock_shift_json(request):
     return HttpResponse(simplejson.dumps(api_list, ensure_ascii=False))
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def save_mock_shift(request):
     received_json_data = request.POST.get("settings")
@@ -43,6 +46,7 @@ def save_mock_shift(request):
     return HttpResponse(1)
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def query_mock_shift(request):
     mock_shift_data = mock_shift.objects.all()

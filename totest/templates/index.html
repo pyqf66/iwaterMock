@@ -17,7 +17,7 @@
      style="height: 70px; background: #0D75E0; padding: 10px; background-color: rgb(29, 93, 141); overflow: hidden;">
     <div>
         <img alt="" src="/statics/themes/logo.jpeg" style="">
-        <a href="/" style="font-size:12px;color:white;float: right;">注销</a>
+        <a href="javascript:void(0)" style="font-size:12px;color:white;float: right;" onclick="logout()">注销</a>
     </div>
 </div>
 <!-- 增加功能菜单树 -->
@@ -109,6 +109,24 @@
             }
         });
     });
+    function logout() {
+        $.ajax({
+            type: 'POST',
+            url: '/mockPlatform/logout',
+            data: {},
+            success: function (data) {
+                console.log(data.status);
+                if (data.status == 1) {
+                    window.location.href = "/"
+                }
+            },
+            error: function () {
+                alert("注销失败！");
+            }
+
+        });
+
+    }
 </script>
 </body>
 </html>

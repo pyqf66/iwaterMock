@@ -1,4 +1,6 @@
 # -*- coding:utf-8 -*-
+from django.contrib.auth.decorators import login_required
+
 from common.util.Cnumber import Cnumber
 from django.http.response import HttpResponse
 from django.template import RequestContext
@@ -9,11 +11,13 @@ import logging
 
 logger = logging.getLogger("iwaterMock.app")
 
-
+@login_required(login_url="/")
+@csrf_exempt
 def cnumber_page(request):
     return render_to_response("cnumber.html", context=RequestContext(request))
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def tool_cnumber(request):
     try:

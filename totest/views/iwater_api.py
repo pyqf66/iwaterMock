@@ -1,5 +1,8 @@
 # -*- coding:utf-8 -*-
 from urllib import parse
+
+from django.contrib.auth.decorators import login_required
+
 from common.iwater.api_config import url_test as url
 import requests
 from django.http.response import HttpResponse
@@ -17,11 +20,13 @@ from totest.models import iwater_api
 logger = logging.getLogger("iwaterMock.app")
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def iwater_api_page(request):
     return render_to_response("iwaterApi.html", context=RequestContext(request))
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def iwater_api_json(request):
     api_list = [{
@@ -37,6 +42,7 @@ def iwater_api_json(request):
     return HttpResponse(simplejson.dumps(api_list, ensure_ascii=False))
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def save_iwater_api(request):
     received_json_data = request.POST.get("settings")
@@ -47,6 +53,7 @@ def save_iwater_api(request):
     return HttpResponse(1)
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def query_iwater_api(request):
     iwater_api_json_data = iwater_api.objects.all()

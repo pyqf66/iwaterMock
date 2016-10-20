@@ -6,19 +6,24 @@ from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from totest.models import api_mock
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 import simplejson
 import logging
 
 logger = logging.getLogger("iwaterMock.app")
 
-
+@login_required(login_url="/")
+@csrf_exempt
 def index_text(request):
     return render_to_response("tmp.html", context=RequestContext(request))
 
 
+@login_required(login_url="/")
+@csrf_exempt
 def index(request):
     return render_to_response("index.html", context=RequestContext(request))
 
+@login_required(login_url="/")
 @csrf_exempt
 def menu(request):
     menu_list = [{

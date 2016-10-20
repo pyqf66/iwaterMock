@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -9,12 +10,13 @@ from totest.models import mock_any_api_manual
 
 logger = logging.getLogger("iwaterMock.app")
 
-
+@login_required(login_url="/")
 @csrf_exempt
 def mock_any_api_manual_page(request):
     return render_to_response("mockAnyApiManual.html", context=RequestContext(request))
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def save_mock_any_api_manual(request):
     received_json_data = request.POST.get("settings")
@@ -25,6 +27,7 @@ def save_mock_any_api_manual(request):
     return HttpResponse(1)
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def query_mock_any_api_manual(request):
     try:
@@ -37,6 +40,7 @@ def query_mock_any_api_manual(request):
         logger.exception("查询api失败：")
 
 
+@login_required(login_url="/")
 @csrf_exempt
 def mock_api_manual(request):
     for i in mock_any_api_manual.objects.filter(id=1):
