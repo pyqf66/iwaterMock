@@ -2,7 +2,8 @@
 
 
 # 测试环境
-url_test = "http://123.57.47.236:8091"
+# url_test = "http://123.57.47.236:8091"
+url_test = "http://test.iwaterdata.com"
 
 # 开发环境
 url_dev = "http://123.57.47.236:9002"

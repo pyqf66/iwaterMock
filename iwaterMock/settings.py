@@ -102,20 +102,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/statics/'
 if platform.system() == "Linux":
     STATICFILES_DIRS = (
-        "%s/%s" % (BASE_DIR, "statics")
+        "%s/%s" % (BASE_DIR, "statics"),
     )
 elif platform.system() == "Darwin":
     STATICFILES_DIRS = (
-        "%s/%s" % (BASE_DIR, "statics")
+        "%s/%s" % (BASE_DIR, "statics"),
     )
 
 elif platform.system() == "Windows":
     # BASE_Windows_DIR=BASE_DIR.re
     BASE_WINDOWS_DIR = BASE_DIR.replace("\\", "/")
-    STATICFILES_DIRS = ("%s/%s" % (BASE_WINDOWS_DIR, "statics"))
+    STATICFILES_DIRS = ("%s/%s" % (BASE_WINDOWS_DIR, "statics"),)
 
 # Django日志配置
 LOGGING = {
@@ -137,7 +137,7 @@ LOGGING = {
         'default': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(STATICFILES_DIRS + '/logs/', 'all.log'),  # 或者直接写路径：'c:\logs\all.log',
+            'filename': os.path.join(STATICFILES_DIRS[0] + '/logs/', 'all.log'),  # 或者直接写路径：'c:\logs\all.log',
             'maxBytes': 1024 * 1024 * 1024,  # 5 MB
             'backupCount': 5,
             'formatter': 'standard',
@@ -150,7 +150,7 @@ LOGGING = {
         'time_calc':{
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(STATICFILES_DIRS + '/logs/', 'time.log'),  # 或者直接写路径：'c:\logs\all.log',
+            'filename': os.path.join(STATICFILES_DIRS[0] + '/logs/', 'time.log'),  # 或者直接写路径：'c:\logs\all.log',
             'maxBytes': 1024 * 1024 * 1024,  # 5 MB
             'backupCount': 5,
             'formatter': 'standard',
@@ -159,7 +159,7 @@ LOGGING = {
         'request_handler': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(STATICFILES_DIRS + '/logs/', 'script.log'),
+            'filename': os.path.join(STATICFILES_DIRS[0] + '/logs/', 'script.log'),
             # 或者直接写路径：'filename':'c:\logs\request.log''
             'maxBytes': 1024 * 1024 * 1024,  # 5 MB
             'backupCount': 5,
@@ -168,7 +168,7 @@ LOGGING = {
         'scprits_handler': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(STATICFILES_DIRS + '/logs/', 'script.log'),
+            'filename': os.path.join(STATICFILES_DIRS[0] + '/logs/', 'script.log'),
             # 或者直接写路径：'filename':'c:\logs\script.log'
             'maxBytes': 1024 * 1024 * 5,  # 5 MB
             'backupCount': 5,

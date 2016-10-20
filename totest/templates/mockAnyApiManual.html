@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>jQuery EasyUI</title>
+    <link rel="stylesheet" type="text/css"
+          href="/statics/themes/bootstrap/easyui.css">
+    <script type="text/javascript" src="/statics/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="/statics/js/jquery.easyui.min.js"></script>
+    <script src="/statics/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<div>
+    <div class="mockAnyApiManualLabel">
+        <label for="name">^_^mock的响应</label>
+    </div>
+    <div class="mockAnyApiManual">
+        <input
+                class="easyui-textbox" data-options="multiline:true" id="mockAnyApiManual"
+                name="mockAnyApiManual" style="width:500px;height:300px">
+        </input>
+    </div>
+    <div class="mockAnyApiManualSave">
+        <a href="#" class="easyui-linkbutton" onclick="save()" style="width:50px">保存</a>
+    </div>
+</div>
+<script type="text/javascript">
+    //csrf认证生明处理
+    //debugger;
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+
+    $.ajax({
+        type: 'POST',
+        url: '/mockPlatform/apiMock/queryMockAnyApiManual',
+        data: {},
+        success: function (data) {
+            var content = data.response_content
+            console.log(content);
+            console.log(typeof content);
+            $('#mockAnyApiManual').textbox('setText', content);
+        },
+        error: function () {
+            alert("获取失败！");
+        }
+
+    });
+
+
+    function save() {
+        //调试;
+        //debugger;
+        var response_content = $('#mockAnyApiManual').textbox("getText");
+        console.log(response_content);
+        var settings = new Object();
+        settings["response_content"] = response_content;
+        $.ajax({
+            type: 'POST',
+            url: '/mockPlatform/apiMock/saveMockAnyApiManual',
+            data: {
+                'settings': JSON.stringify(settings)
+            },
+            success: function (data) {
+                alert("保存成功！");
+            },
+            error: function () {
+                alert("保存失败！");
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,3 +1,4 @@
+from totest.views.login import *
 from totest.views.index import *
 from totest.views.api_settings import *
 from totest.views.api_mock import *

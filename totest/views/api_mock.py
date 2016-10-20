@@ -74,7 +74,7 @@ def iwater_mock(request, rest_api):
         mock_object = IwaterApi()
         if get_mock_shift() == '1':
             result_list = mock_object.get_mock_value_list(api_name, api_no)
-        logger.info(api_name + "接口:是否需要mock的返回值：" + str(api_mock))
+        logger.info(api_name + "接口:是否需要mock的返回值：" + str(result_list))
         logger.info(api_name + "接口:请求方法为:" + str(request.method))
     except:
         logger.exception(api_name + "接口:准备数据错误：")

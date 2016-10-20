@@ -13,7 +13,6 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-
 from django.conf.urls import include, url
 from django.contrib import admin
 import django.views.static
@@ -21,8 +20,11 @@ from iwaterMock import settings
 from totest import views
 
 urlpatterns = [
-    url(r'^testInstall$', views.index_text),
-    url(r'^$', views.index),
+    url(r'^admin/', admin.site.urls),
+    url(r'^$', views.login),
+    url(r'^mockPlatform/loginCheck', views.login_check),
+    url(r'^mockPlatform/index', views.index),
+    url(r'^mockPlatform/menu.json', views.menu),
     url(r'^mockPlatform/menu.json', views.menu),
     url(r'^mockPlatform/apiMock/settingsPage', views.api_mock_settings_page),
     url(r'^mockPlatform/apiMock/settingsData', views.api_data_json_response),
@@ -49,5 +51,5 @@ urlpatterns = [
     url(r'^mockPlatform/kernal/saveMockShift$', views.save_mock_shift),
     url(r'^mockPlatform/kernal/queryMockShift$', views.query_mock_shift),
     url(r'^iwaterMock/(.+)', views.iwater_mock),
-    url(r'^statics/(?P<path>.*)$', django.views.static.serve, {'document_root': settings.STATICFILES_DIRS}),
+    url(r'^statics/(?P<path>.*)$', django.views.static.serve, {'document_root': settings.STATICFILES_DIRS[0]}),
 ]
