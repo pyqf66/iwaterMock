@@ -85,7 +85,9 @@ def iwater_mock(request, rest_api):
             # 需要mock则mock，不需要mock则直接跳过
             if request_data:
                 try:
-                    if type(request_data) == bytes:
+                    if type(request_data) == dict and "file" in request_data:
+                        logger.debug(api_name + "接口:请求的数据为文件")
+                    elif type(request_data) == bytes:
                         logger.debug(api_name + "接口:请求的数据为：" + str(parse.unquote(request_data.decode('utf-8'))))
                     else:
                         logger.debug(api_name + "接口:请求的数据为：" + str(parse.unquote(request_data)))
