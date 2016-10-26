@@ -16,7 +16,7 @@
             <script type="text/javascript">
                 $(function () {
                     $("#loginWindow").window({
-                        title: '登陆窗口',
+                        title: '登录窗口',
                         width: 290,
                         height: 180,
                         modal: true,
@@ -36,7 +36,7 @@
                     });
 
                     $("#aboutSys").click(function () {
-                        $.messager.alert('关于', 'JQuery EasyUi练习!', 'info');
+                        $.messager.alert('关于', '爱水科技MOCK平台', 'info');
                     });
                 });
 
@@ -66,7 +66,7 @@
         </form>
         </head>
 <body>
-<div id="loginWindow" class="easyui-window" title="登陆窗口" iconCls="icon-login"
+<div id="loginWindow" class="easyui-window" title="登录窗口" iconCls="icon-login"
      style="width:300px;height:180px;padding:5px;background: #fafafa;">
     <div border="false" style=" padding-left:30px; background:#fff;border:1px solid #ccc;">
         <form>
@@ -83,8 +83,8 @@
         </form>
     </div>
     <div border="false" style="text-align:center;height:30px;line-height:30px; margin-top:6px;">
-        <a class="easyui-linkbutton" iconCls="icon-thereof" href="javascript:void(0)" id="aboutSys">关于</a>
-        <a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:void(0)" id="btnLogin">登陆</a>
+        <a class="easyui-linkbutton" href="javascript:void(0)" id="aboutSys" style="width: 70px;">关于</a>
+        <a class="easyui-linkbutton" href="javascript:void(0)" id="btnLogin" style="width: 70px">登录</a>
     </div>
 </div>
 

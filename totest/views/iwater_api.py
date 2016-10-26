@@ -3,7 +3,6 @@ from urllib import parse
 
 from django.contrib.auth.decorators import login_required
 
-from common.iwater.api_config import url_test as url
 import requests
 from django.http.response import HttpResponse
 from django.shortcuts import render_to_response
@@ -30,9 +29,12 @@ def iwater_api_page(request):
 @csrf_exempt
 def iwater_api_json(request):
     api_list = [{
-        "url": url_test,
-        "environment": "test"
+        "url": url_test_ip,
+        "environment": "test_ip"
     }, {
+        "url": url_test_domain,
+        "environment": "test_domain"
+    },{
         "url": url_dev,
         "environment": "dev"
     }, {
