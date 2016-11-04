@@ -8,3 +8,4 @@ from totest.views.get_sms import *
 from totest.views.iwater_api import *
 from totest.views.mock_shift import *
 from totest.views.mock_any_api_manual import *
+from totest.views.get_log import *

@@ -50,6 +50,9 @@ urlpatterns = [
     url(r'^mockPlatform/kernal/mockShiftJson$', views.mock_shift_json),
     url(r'^mockPlatform/kernal/saveMockShift$', views.save_mock_shift),
     url(r'^mockPlatform/kernal/queryMockShift$', views.query_mock_shift),
+    url(r'^mockPlatform/tool/logs$',views.ajax_get_log),
+    url(r'^mockPlatform/tool/logsLine$',views.ajax_get_log_line),
+    url(r'^mockPlatform/tool/logsHandle$',views.ajax_get_log_handle,name="ajax_handle_log"),
     url(r'^iwaterMock/(.+)', views.iwater_mock),
     url(r'^statics/(?P<path>.*)$', django.views.static.serve, {'document_root': settings.STATICFILES_DIRS[0]}),
 ]

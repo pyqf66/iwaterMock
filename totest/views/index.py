@@ -65,7 +65,11 @@ def menu(request):
             "text": "短信验证码获取",
             "attributes": {
                 "url": "/mockPlatform/tool/getSmsPage"
-            }}
+            }},{
+            "text": "查看mock接口日志",
+            "attributes": {
+                "url": "/mockPlatform/tool/logs"
+        }}
         ]
     }]
     return HttpResponse(simplejson.dumps(menu_list, ensure_ascii=False))
