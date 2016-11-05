@@ -100,7 +100,13 @@ def iwater_mock(request, rest_api):
                 if api_is_open == 1:
                     logger.debug(api_name + "接口:最终mock的数据为" + str(
                         simplejson.dumps(result_list[0], ensure_ascii=False)))
-                    return HttpResponse(simplejson.dumps(result_list[0], ensure_ascii=False))
+                    response = HttpResponse(simplejson.dumps(result_list[0], ensure_ascii=False))
+                    response["Access-Control-Allow-Origin"] = '*'
+                    response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+                    response["Access-Control-Max-Age"] = "1000"
+                    response["Access-Control-Allow-Headers"] = "*"
+                    return response
+                    # return HttpResponse(simplejson.dumps(result_list[0], ensure_ascii=False))
             logger.debug(api_name + "接口:真实请求路径rest_abs_api=" + str(parse.unquote(rest_abs_api)))
             logger.debug(api_name + "接口:请求的请求头为：" + str(content_type))
             logger.debug(api_name + "接口:请求数据request_data数据类型为" + str(type(request_data)))
@@ -115,7 +121,13 @@ def iwater_mock(request, rest_api):
             except:
                 result = http_object.content.decode("utf-8")
                 logger.debug(api_name + "接口:最终响应结果：" + str(result))
-                return render_to_response(result, context=RequestContext(request))
+                response = render_to_response(result, context=RequestContext(request))
+                response["Access-Control-Allow-Origin"] = '*'
+                response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+                response["Access-Control-Max-Age"] = "1000"
+                response["Access-Control-Allow-Headers"] = "*"
+                # return render_to_response(result, context=RequestContext(request))
+                return response
             logger.debug(api_name + "接口:最终响应结果：" + str(result))
     except:
         logger.exception(api_name + "接口:POST请求错误如下：")
@@ -131,7 +143,13 @@ def iwater_mock(request, rest_api):
                 if api_is_open == 1:
                     logger.debug(api_name + "接口:最终mock的数据为" + str(
                         simplejson.dumps(result_list[0], ensure_ascii=False)))
-                    return HttpResponse(simplejson.dumps(result_list[0], ensure_ascii=False))
+                    response = HttpResponse(simplejson.dumps(result_list[0], ensure_ascii=False))
+                    # return HttpResponse(simplejson.dumps(result_list[0], ensure_ascii=False))
+                    response["Access-Control-Allow-Origin"] = '*'
+                    response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+                    response["Access-Control-Max-Age"] = "1000"
+                    response["Access-Control-Allow-Headers"] = "*"
+                    return response
             rest_abs_api = url + full_path[11:]
             logger.debug(api_name + "接口:真实请求路径rest_abs_api=" + str(parse.unquote(rest_abs_api)))
             http_object = TimeCalc.time_clac(requests.get(url=rest_abs_api), rest_api)
@@ -143,9 +161,21 @@ def iwater_mock(request, rest_api):
                 result = http_object.content
                 logger.debug(api_name + "接口:最终响应结果：" + str(result))
                 logger.debug(api_name + "接口:content_type=" + str(http_object.headers))
-                return HttpResponse(result, content_type=mock_content_type)
+                # return HttpResponse(result, content_type=mock_content_type)
+                response = HttpResponse(result, content_type=mock_content_type)
+                response["Access-Control-Allow-Origin"] = '*'
+                response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+                response["Access-Control-Max-Age"] = "1000"
+                response["Access-Control-Allow-Headers"] = "*"
+                return response
             logger.debug(api_name + "接口:最终响应结果：" + str(result))
     except:
         logger.exception(api_name + "接口:GET请求错误如下：")
 
-    return HttpResponse(result)
+    # return HttpResponse(result)
+    response = HttpResponse(result, content_type="application/json;charset=UTF-8")
+    response["Access-Control-Allow-Origin"] = '*'
+    response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+    response["Access-Control-Max-Age"] = "1000"
+    response["Access-Control-Allow-Headers"] = "*"
+    return response
