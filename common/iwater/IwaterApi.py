@@ -5,6 +5,7 @@ import simplejson
 from django.http.response import HttpResponse
 import logging
 from urllib import parse
+import demjson
 
 logger = logging.getLogger("iwaterMock.app")
 
@@ -47,7 +48,10 @@ class IwaterApi(object):
             try:
                 api_no_list = parse.parse_qsl(data)
                 api_no_dict = dict(api_no_list)
-                api_no = simplejson.loads(api_no_dict["requestPara"])["command"]
+                try:
+                    api_no = str(simplejson.loads(api_no_dict["requestPara"])["command"])
+                except:
+                    api_no = str(demjson.decode(api_no_dict["requestPara"])["command"])
             except:
                 api_no = ""
         return api_no

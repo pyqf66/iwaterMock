@@ -168,6 +168,23 @@
     margin-left: 30%;
 }
 
+.currentTimeStampLabel {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.currentTimeStamp {
+    margin-bottom: 10px;
+}
+
+.byDateTimeStampLabel {
+    margin-bottom: 10px;
+}
+
+.byDateTimeStamp {
+    margin-bottom: 10px;
+}
+
 .clear {
     clear: both
 }

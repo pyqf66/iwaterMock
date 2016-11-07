@@ -53,6 +53,9 @@ urlpatterns = [
     url(r'^mockPlatform/tool/logs$',views.ajax_get_log),
     url(r'^mockPlatform/tool/logsLine$',views.ajax_get_log_line),
     url(r'^mockPlatform/tool/logsHandle$',views.ajax_get_log_handle,name="ajax_handle_log"),
+    url(r'^mockPlatform/tool/getTimeStampPage$',views.get_time_stamp_page),
+    url(r'^mockPlatform/tool/getTimeStampCurrentTime$',views.get_time_stamp_current_time),
+    url(r'^mockPlatform/tool/getTimeStampByDate$',views.get_time_stamp_by_date),
     url(r'^iwaterMock/(.+)', views.iwater_mock),
     url(r'^statics/(?P<path>.*)$', django.views.static.serve, {'document_root': settings.STATICFILES_DIRS[0]}),
 ]

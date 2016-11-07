@@ -100,7 +100,8 @@ def iwater_mock(request, rest_api):
                 if api_is_open == 1:
                     logger.debug(api_name + "接口:最终mock的数据为" + str(
                         simplejson.dumps(result_list[0], ensure_ascii=False)))
-                    response = HttpResponse(simplejson.dumps(result_list[0], ensure_ascii=False))
+                    response = HttpResponse(simplejson.dumps(result_list[0], ensure_ascii=False),
+                                            content_type="application/json;charset=UTF-8")
                     response["Access-Control-Allow-Origin"] = '*'
                     response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
                     response["Access-Control-Max-Age"] = "1000"
@@ -143,7 +144,8 @@ def iwater_mock(request, rest_api):
                 if api_is_open == 1:
                     logger.debug(api_name + "接口:最终mock的数据为" + str(
                         simplejson.dumps(result_list[0], ensure_ascii=False)))
-                    response = HttpResponse(simplejson.dumps(result_list[0], ensure_ascii=False))
+                    response = HttpResponse(simplejson.dumps(result_list[0], ensure_ascii=False),
+                                            content_type="application/json;charset=UTF-8")
                     # return HttpResponse(simplejson.dumps(result_list[0], ensure_ascii=False))
                     response["Access-Control-Allow-Origin"] = '*'
                     response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"

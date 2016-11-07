@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="cache-control" content="no-cache">
+    <title>jQuery EasyUI</title>
+    <link rel="stylesheet" type="text/css"
+          href="/statics/themes/bootstrap/easyui.css">
+    <link rel="stylesheet" type="text/css"
+          href="/statics/css/iwaterMock.css">
+    <script type="text/javascript" src="/statics/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="/statics/js/jquery.easyui.min.js"></script>
+    <script src="/statics/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<div>
+    <div class="currentTimeStampLabel">
+        <label for="name">===　获取当前时间时间戳　===</label>
+    </div>
+    <div class="currentTimeStamp">
+        <label for="name">　　　　　　时间戳：</label>
+        <input
+                class="easyui-validatebox" type="text" id="currentTimeStamp"
+                name="currentTimeStamp" style="width:200px">
+        <a href="#" class="easyui-linkbutton" onclick="getCurrentTimeStamp()">计算</a>
+    </div>
+</div>
+<div>
+    <div class="byDateTimeStampLabel">
+        <label for="name">===　指定日期获取时间戳　===</label>
+    </div>
+    <div class="byDateTimeStamp">
+        <label for="name">　　　　　　日　期：</label>
+        <input
+                class="easyui-validatebox" type="text" id="date"
+                name="date" style="width:200px">
+        <label for="name">　　　　　　时间戳：</label>
+        <input
+                class="easyui-validatebox" type="text" id="byDateTimeStamp"
+                name="byDateTimeStamp" style="width:200px">
+        <a href="#" class="easyui-linkbutton" onclick="getByDateTimeStamp()">计算</a>
+    </div>
+    <div>
+        注：日期格式请遵守"2016-06-06 06:06:06"<br><br>
+    </div>
+</div>
+<script type="text/javascript">
+    //csrf认证生明处理
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    $('#p').css("background", "white")
+    function getCurrentTimeStamp() {
+        //调试;
+        //debugger;
+        $.ajax({
+            url: '/mockPlatform/tool/getTimeStampCurrentTime',
+            type: 'POST',
+            data: {},
+            success: function (data) {
+                $('#currentTimeStamp').val(data.timeStamp)
+            },
+            error: function () {
+                alert("获取失败！");
+            }
+        });
+    }
+
+    function getByDateTimeStamp() {
+        //调试;
+        //debugger;
+        var dateTime = $('#date').val();
+        $.ajax({
+            url: '/mockPlatform/tool/getTimeStampByDate',
+            type: 'POST',
+            data: {
+                'dateTime': dateTime
+            },
+            success: function (data) {
+                $('#byDateTimeStamp').val(data.timeStamp)
+            },
+            error: function () {
+                alert("获取失败！");
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

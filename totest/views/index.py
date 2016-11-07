@@ -12,6 +12,7 @@ import logging
 
 logger = logging.getLogger("iwaterMock.app")
 
+
 @login_required(login_url="/")
 @csrf_exempt
 def index_text(request):
@@ -22,6 +23,7 @@ def index_text(request):
 @csrf_exempt
 def index(request):
     return render_to_response("index.html", context=RequestContext(request))
+
 
 @login_required(login_url="/")
 @csrf_exempt
@@ -65,11 +67,15 @@ def menu(request):
             "text": "短信验证码获取",
             "attributes": {
                 "url": "/mockPlatform/tool/getSmsPage"
-            }},{
+            }}, {
+            "text": "时间戳获取",
+            "attributes": {
+                "url": "/mockPlatform/tool/getTimeStampPage"
+            }}, {
             "text": "查看mock接口日志",
             "attributes": {
                 "url": "/mockPlatform/tool/logs"
-        }}
+            }}
         ]
     }]
     return HttpResponse(simplejson.dumps(menu_list, ensure_ascii=False))
