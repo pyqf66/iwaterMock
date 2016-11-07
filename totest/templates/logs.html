@@ -49,25 +49,25 @@
             }
         }
     });
-    $('#p').css("background","#000")
-    try{
+    $('#p').css("background", "#000")
+    try {
         window.clearInterval(t);
     }
-    catch(e){
+    catch (e) {
 
     }
 
     $('#log').empty();
     function startPrint() {
         $.ajax({
-            url: "/mockPlatform/tool/logsLine",
+            url: "/mockPlatform/tools/logsLine",
             type: "POST",
             success: function (data) {
                 line = data.line;
                 $(function () {
                     $('#log').empty();
                     $.ajax({
-                        url: "/mockPlatform/tool/logsHandle?line=" + line,
+                        url: "/mockPlatform/tools/logsHandle?line=" + line,
                         type: 'GET',
                         success: function (data) {
 
@@ -75,7 +75,7 @@
                                 $('#log').append('<p>' + data + '</p>');
                                 t = setInterval(function () {
                                     line++
-                                    var url = "tool/logsHandle?line=" + line
+                                    var url = "/mockPlatform/tools/logsHandle?line=" + line
                                     $.ajax({
                                         url: url,
                                         type: 'GET',
@@ -89,7 +89,6 @@
                                             }
                                         },
                                         error: function (data) {
-                                            myalert();
                                             return false;
                                         }
                                     });
@@ -113,9 +112,9 @@
         window.clearInterval(t);
         //$('#log').next().nextAll().remove();
     }
-        function myalert() {
-            alert("服务器提出了一个问题，请找张羽锋寻求答案！")
-        }
+    function myalert() {
+        alert("服务器提出了一个问题，请找张羽锋寻求答案！")
+    }
 </script>
 </body>
 </html>

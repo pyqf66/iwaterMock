@@ -47,11 +47,11 @@
                         type: "POST",
                         dataType: "json",
                         //cache:true,
-                        url: "mockPlatform/loginCheck",
+                        url: "mockPlatform/index/loginCheck",
                         data: {username: username, password: password},
                         success: function (json) {
                             if (json.status == 1) {
-                                window.location.href = "mockPlatform/index";
+                                window.location.href = "mockPlatform/index/indexPage";
                             }
                             else {
                                 $.messager.alert('错误', '账号或密码错误!', 'error');

@@ -18,7 +18,7 @@
     <div class="iwaterApi">
         <input
                 class="easyui-combobox" id="iwaterApi"
-                name="iwaterApi" >
+                name="iwaterApi">
         </input>
     </div>
     <div class="iwaterApiSave">
@@ -57,14 +57,21 @@
         }
     });
 
-    $('#p').css("background","white")
+    try {
+        window.clearInterval(t);
+    }
+    catch (e) {
+
+    }
+
+    $('#p').css("background", "white")
     $.ajax({
         type: 'POST',
         url: '/mockPlatform/kernal/queryIwaterApi',
         data: {},
         success: function (data) {
             console.log(data.environment);
-            $('#iwaterApi').combobox("setValue",data.environment);
+            $('#iwaterApi').combobox("setValue", data.environment);
         },
         error: function () {
             alert("生成失败！");
@@ -91,13 +98,13 @@
         console.log(url)
         console.log(environment);
         var settings = new Object();
-        settings["url"]=url;
-        settings["environment"]=environment;
+        settings["url"] = url;
+        settings["environment"] = environment;
         $.ajax({
             type: 'POST',
             url: '/mockPlatform/kernal/saveIwaterAPI',
             data: {
-                'settings':JSON.stringify(settings)
+                'settings': JSON.stringify(settings)
             },
             success: function (data) {
                 alert("保存成功！");

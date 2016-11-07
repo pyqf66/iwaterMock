@@ -75,12 +75,20 @@
         }
     });
 
+    try {
+        window.clearInterval(t);
+    }
+    catch (e) {
+
+    }
+
+
     $('#p').css("background", "white")
     function getCurrentTimeStamp() {
         //调试;
         //debugger;
         $.ajax({
-            url: '/mockPlatform/tool/getTimeStampCurrentTime',
+            url: '/mockPlatform/tools/getTimeStampCurrentTime',
             type: 'POST',
             data: {},
             success: function (data) {
@@ -97,13 +105,18 @@
         //debugger;
         var dateTime = $('#date').val();
         $.ajax({
-            url: '/mockPlatform/tool/getTimeStampByDate',
+            url: '/mockPlatform/tools/getTimeStampByDate',
             type: 'POST',
             data: {
                 'dateTime': dateTime
             },
             success: function (data) {
-                $('#byDateTimeStamp').val(data.timeStamp)
+                if (data.status == '0') {
+                    $('#byDateTimeStamp').val(data.timeStamp)
+                }
+                else {
+                    $('#byDateTimeStamp').val("日期没按要求格式填写吧？")
+                }
             },
             error: function () {
                 alert("获取失败！");

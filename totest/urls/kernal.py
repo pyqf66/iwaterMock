@@ -13,20 +13,16 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url
-from django.contrib import admin
-import django.views.static
-from iwaterMock import settings
+from django.conf.urls import url
 from totest import views
-from totest.urls import *
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', views.iwater_login),
-    url(r'^mockPlatform/index/', include(index)),
-    url(r'^mockPlatform/apiMock/', include(apiMock)),
-    url(r'^mockPlatform/tools/', include(tools)),
-    url(r'^mockPlatform/kernal/', include(kernal)),
-    url(r'^iwaterMock/(.+)', views.iwater_mock),
-    url(r'^statics/(?P<path>.*)$', django.views.static.serve, {'document_root': settings.STATICFILES_DIRS[0]}),
+    url(r'^iwaterAPIPage$', views.iwater_api_page),
+    url(r'^iwaterAPIJson$', views.iwater_api_json),
+    url(r'^saveIwaterAPI$', views.save_iwater_api),
+    url(r'^queryIwaterApi$', views.query_iwater_api),
+    url(r'^mockPage$', views.mock_page),
+    url(r'^mockShiftJson$', views.mock_shift_json),
+    url(r'^saveMockShift$', views.save_mock_shift),
+    url(r'^queryMockShift$', views.query_mock_shift),
 ]

@@ -23,7 +23,7 @@ def get_time_stamp_page(request):
 @csrf_exempt
 def get_time_stamp_current_time(request):
     try:
-        time_stamp = int(time.time()*1000)
+        time_stamp = int(time.time() * 1000)
         result = {"timeStamp": str(time_stamp)}
         return HttpResponse(simplejson.dumps(result, ensure_ascii=False), content_type="application/json")
     except Exception as e:
@@ -35,11 +35,16 @@ def get_time_stamp_current_time(request):
 @csrf_exempt
 def get_time_stamp_by_date(request):
     try:
+        status = '0'
         date_time = request.POST.get("dateTime")
-        time_array = time.strptime(date_time, "%Y-%m-%d %H:%M:%S")
-        time_stamp = int(time.mktime(time_array) * 1000)
+        try:
+            time_array = time.strptime(date_time, "%Y-%m-%d %H:%M:%S")
+            time_stamp = int(time.mktime(time_array) * 1000)
+        except ValueError:
+            status = '1'
+            time_stamp = ''
         # return int(time_stamp*1000)
-        result = {"timeStamp": str(time_stamp)}
+        result = {'status': status, 'timeStamp': str(time_stamp)}
         return HttpResponse(simplejson.dumps(result, ensure_ascii=False), content_type="application/json")
     except Exception as e:
         logger.error(e)

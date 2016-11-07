@@ -90,13 +90,21 @@
         }
     });
 
-    $('#p').css("background","white")
+    try {
+        window.clearInterval(t);
+    }
+    catch (e) {
+
+    }
+
+
+    $('#p').css("background", "white")
     function getIwater2Sms() {
         //调试;
         //debugger;
         var phoneNumber = $('#Iwater2Phone').val();
         $.ajax({
-            url: '/mockPlatform/tool/getSms',
+            url: '/mockPlatform/tools/getSms',
             data: {
                 'phoneNumber': phoneNumber
             },
@@ -116,7 +124,7 @@
         //debugger;
         var phoneNumber = $('#Iwater2TransferPhone').val();
         $.ajax({
-            url: '/mockPlatform/tool/getSmsTransfer',
+            url: '/mockPlatform/tools/getSmsTransfer',
             data: {
                 'phoneNumber': phoneNumber
             },
@@ -136,7 +144,7 @@
         //debugger;
         var phoneNumber = $('#Iwater2DevPhone').val();
         $.ajax({
-            url: '/mockPlatform/tool/getSmsDev',
+            url: '/mockPlatform/tools/getSmsDev',
             data: {
                 'phoneNumber': phoneNumber
             },

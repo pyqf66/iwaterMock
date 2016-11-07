@@ -58,23 +58,23 @@ def menu(request):
         "children": [{
             "text": "阿拉伯数字转中文大写数字",
             "attributes": {
-                "url": "/mockPlatform/tool/cnumberPage"
+                "url": "/mockPlatform/tools/cnumberPage"
             }}, {
             "text": "饮水量计算",
             "attributes": {
-                "url": "/mockPlatform/tool/drinkCalcPage"
+                "url": "/mockPlatform/tools/drinkCalcPage"
             }}, {
             "text": "短信验证码获取",
             "attributes": {
-                "url": "/mockPlatform/tool/getSmsPage"
+                "url": "/mockPlatform/tools/getSmsPage"
             }}, {
             "text": "时间戳获取",
             "attributes": {
-                "url": "/mockPlatform/tool/getTimeStampPage"
+                "url": "/mockPlatform/tools/getTimeStampPage"
             }}, {
             "text": "查看mock接口日志",
             "attributes": {
-                "url": "/mockPlatform/tool/logs"
+                "url": "/mockPlatform/tools/logs"
             }}
         ]
     }]

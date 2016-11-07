@@ -188,10 +188,18 @@
         }
     });
 
-    $('#p').css("background","white")
+    try {
+        window.clearInterval(t);
+    }
+    catch (e) {
+
+    }
+
+
+    $('#p').css("background", "white")
     $.ajax({
         type: 'POST',
-        url: '/mockPlatform/tool/getWaterSettings',
+        url: '/mockPlatform/tools/getWaterSettings',
         data: {},
         success: function (data) {
             $('#DrinkPlan').val(data.drinkPlan);
@@ -235,7 +243,7 @@
         var waterHydrating = $('#WaterHydrating').val();
         $.ajax({
             type: 'POST',
-            url: '/mockPlatform/tool/drinkCalc',
+            url: '/mockPlatform/tools/drinkCalc',
             data: {
                 'drinkLabel': drinkLabel,
                 'drinkPlan': drinkPlan,

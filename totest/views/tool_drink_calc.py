@@ -14,6 +14,7 @@ import logging
 
 logger = logging.getLogger("iwaterMock.app")
 
+
 @login_required(login_url="/")
 @csrf_exempt
 def drink_calc_page(request):
@@ -88,14 +89,16 @@ def drink_calc(request):
                                                           decrement_weight=int(decrementWeight),
                                                           sports_type=int(sportsType),
                                                           sports_distance=int(sportsDistance),
-                                                          temperature=int(temperature), water_hydrating=int(waterHydrating))
+                                                          temperature=int(temperature),
+                                                          water_hydrating=int(waterHydrating))
         else:
             hydrating_result = hydrating_object.calculate(hydrating_plan=int(hydratingPlan),
                                                           weight=int(weight),
                                                           decrement_weight=int(decrementWeight),
                                                           sports_type=int(sportsType),
                                                           sports_distance=int(sportsDistance),
-                                                          temperature=int(temperature), water_hydrating=int(waterHydrating))
+                                                          temperature=int(temperature),
+                                                          water_hydrating=int(waterHydrating))
 
         const_object = HydratingPlan()
         const_result = const_object.calculate(hydrating_plan=5, weight=int(weight),

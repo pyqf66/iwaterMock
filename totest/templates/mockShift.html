@@ -18,7 +18,7 @@
     <div class="mockShift">
         <input
                 class="easyui-combobox" id="mockShift"
-                name="mockShift" >
+                name="mockShift">
         </input>
     </div>
     <div class="mockShiftSave">
@@ -57,20 +57,26 @@
         }
     });
 
-    $('#p').css("background","white")
+    try {
+        window.clearInterval(t);
+    }
+    catch (e) {
+
+    }
+
+
+    $('#p').css("background", "white")
     $.ajax({
         type: 'POST',
         url: '/mockPlatform/kernal/queryMockShift',
         data: {},
         success: function (data) {
             console.log(data.is_open);
-            if (data.is_open == 1)
-            {
-                $('#mockShift').combobox("setValue","开");
+            if (data.is_open == 1) {
+                $('#mockShift').combobox("setValue", "开");
             }
-            else
-            {
-                $('#mockShift').combobox("setValue","关");
+            else {
+                $('#mockShift').combobox("setValue", "关");
             }
         },
         error: function () {
@@ -98,13 +104,13 @@
         console.log(status)
         console.log(isOpen);
         var settings = new Object();
-        settings["status"]=status;
-        settings["isOpen"]=isOpen;
+        settings["status"] = status;
+        settings["isOpen"] = isOpen;
         $.ajax({
             type: 'POST',
             url: '/mockPlatform/kernal/saveMockShift',
             data: {
-                'settings':JSON.stringify(settings)
+                'settings': JSON.stringify(settings)
             },
             success: function (data) {
                 alert("保存成功！");

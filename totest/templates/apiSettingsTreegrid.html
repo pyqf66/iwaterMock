@@ -57,7 +57,7 @@
         }
         var csrftoken = getCookie('csrftoken');
 
-        $('#p').css("background","white")
+        $('#p').css("background", "white")
         function csrfSafeMethod(method) {
             // these HTTP methods do not require CSRF protection
             return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -69,6 +69,14 @@
                 }
             }
         });
+
+
+        try {
+            window.clearInterval(t);
+        }
+        catch (e) {
+
+        }
 
         //加载数据列表数据
         $('#dg').datagrid({

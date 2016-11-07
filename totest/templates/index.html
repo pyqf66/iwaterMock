@@ -73,12 +73,19 @@
         }
     });
 
-    $('#p').css("background","white")
+    try {
+        window.clearInterval(t);
+    }
+    catch (e) {
+
+    }
+
+    $('#p').css("background", "white")
     $(document).ready(function () {
         var eTab = null;
         //加载功能菜单树菜单
         $('#treegrid').tree({
-            url: "/mockPlatform/menu.json"
+            url: "/mockPlatform/index/menu.json"
         });
 
         $('#treegrid').tree({
@@ -114,10 +121,9 @@
     function logout() {
         $.ajax({
             type: 'POST',
-            url: '/mockPlatform/logout',
+            url: '/mockPlatform/index/logout',
             data: {},
             success: function (data) {
-                console.log(data.status);
                 if (data.status == 1) {
                     window.location.href = "/"
                 }
