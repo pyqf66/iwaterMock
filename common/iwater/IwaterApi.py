@@ -3,6 +3,7 @@
 from totest.models import api_mock
 import simplejson
 from django.http.response import HttpResponse
+from django.shortcuts import render_to_response
 import logging
 from urllib import parse
 import demjson
@@ -55,3 +56,15 @@ class IwaterApi(object):
             except:
                 api_no = ""
         return api_no
+
+    @staticmethod
+    def response_iwater(result="", content_type="", context=""):
+        if context:
+            response = render_to_response(result, context=context)
+        else:
+            response = HttpResponse(result, content_type=content_type)
+        response["Access-Control-Allow-Origin"] = '*'
+        response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+        response["Access-Control-Max-Age"] = "1000"
+        response["Access-Control-Allow-Headers"] = "*"
+        return response

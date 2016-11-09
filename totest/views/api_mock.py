@@ -74,6 +74,8 @@ def iwater_mock(request, rest_api):
         mock_object = IwaterApi()
         if get_mock_shift() == '1':
             result_list = mock_object.get_mock_value_list(api_name, api_no)
+        else:
+            result_list = 0
         logger.info(api_name + "接口:是否需要mock的返回值：" + str(result_list))
         logger.info(api_name + "接口:请求方法为:" + str(request.method))
     except:
@@ -93,21 +95,15 @@ def iwater_mock(request, rest_api):
                         logger.debug(api_name + "接口:请求的数据为：" + str(parse.unquote(request_data)))
                 except:
                     logger.debug(api_name + "接口:请求的数据为：" + str(request_data))
-            if result_list != 0:
+            if result_list != 0 and result_list[1] == 1:
                 logger.debug(api_name + "接口:使用mock!")
                 api_is_open = result_list[1]
                 logger.debug(api_name + "接口:子开关为" + str(api_is_open))
-                if api_is_open == 1:
-                    logger.debug(api_name + "接口:最终mock的数据为" + str(
-                        simplejson.dumps(result_list[0], ensure_ascii=False)))
-                    response = HttpResponse(simplejson.dumps(result_list[0], ensure_ascii=False),
-                                            content_type="application/json;charset=UTF-8")
-                    response["Access-Control-Allow-Origin"] = '*'
-                    response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
-                    response["Access-Control-Max-Age"] = "1000"
-                    response["Access-Control-Allow-Headers"] = "*"
-                    return response
-                    # return HttpResponse(simplejson.dumps(result_list[0], ensure_ascii=False))
+                logger.debug(api_name + "接口:最终mock的数据为" + str(
+                    simplejson.dumps(result_list[0], ensure_ascii=False)))
+                response = IwaterApi.response_iwater(simplejson.dumps(result_list[0], ensure_ascii=False),
+                                                     content_type="application/json;charset=UTF-8")
+                return response
             logger.debug(api_name + "接口:真实请求路径rest_abs_api=" + str(parse.unquote(rest_abs_api)))
             logger.debug(api_name + "接口:请求的请求头为：" + str(content_type))
             logger.debug(api_name + "接口:请求数据request_data数据类型为" + str(type(request_data)))
@@ -122,12 +118,7 @@ def iwater_mock(request, rest_api):
             except:
                 result = http_object.content.decode("utf-8")
                 logger.debug(api_name + "接口:最终响应结果：" + str(result))
-                response = render_to_response(result, context=RequestContext(request))
-                response["Access-Control-Allow-Origin"] = '*'
-                response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
-                response["Access-Control-Max-Age"] = "1000"
-                response["Access-Control-Allow-Headers"] = "*"
-                # return render_to_response(result, context=RequestContext(request))
+                response = IwaterApi.response_iwater(result, context=RequestContext(request))
                 return response
             logger.debug(api_name + "接口:最终响应结果：" + str(result))
     except:
@@ -137,21 +128,15 @@ def iwater_mock(request, rest_api):
         if request.method == "GET":
             logger.debug(api_name + "接口:进入GET方法!")
             # 需要mock则mock，不需要mock则直接跳过
-            if result_list != 0:
+            if result_list != 0 and result_list[1] == 1:
                 logger.debug(api_name + "接口:使用mock!")
                 api_is_open = result_list[1]
                 logger.debug(api_name + "接口:子开关为" + str(api_is_open))
-                if api_is_open == 1:
-                    logger.debug(api_name + "接口:最终mock的数据为" + str(
-                        simplejson.dumps(result_list[0], ensure_ascii=False)))
-                    response = HttpResponse(simplejson.dumps(result_list[0], ensure_ascii=False),
-                                            content_type="application/json;charset=UTF-8")
-                    # return HttpResponse(simplejson.dumps(result_list[0], ensure_ascii=False))
-                    response["Access-Control-Allow-Origin"] = '*'
-                    response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
-                    response["Access-Control-Max-Age"] = "1000"
-                    response["Access-Control-Allow-Headers"] = "*"
-                    return response
+                logger.debug(api_name + "接口:最终mock的数据为" + str(
+                    simplejson.dumps(result_list[0], ensure_ascii=False)))
+                response = IwaterApi.response_iwater(simplejson.dumps(result_list[0], ensure_ascii=False),
+                                                     content_type="application/json;charset=UTF-8")
+                return response
             rest_abs_api = url + full_path[11:]
             logger.debug(api_name + "接口:真实请求路径rest_abs_api=" + str(parse.unquote(rest_abs_api)))
             http_object = TimeCalc.time_clac(requests.get(url=rest_abs_api), rest_api)
@@ -163,21 +148,11 @@ def iwater_mock(request, rest_api):
                 result = http_object.content
                 logger.debug(api_name + "接口:最终响应结果：" + str(result))
                 logger.debug(api_name + "接口:content_type=" + str(http_object.headers))
-                # return HttpResponse(result, content_type=mock_content_type)
-                response = HttpResponse(result, content_type=mock_content_type)
-                response["Access-Control-Allow-Origin"] = '*'
-                response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
-                response["Access-Control-Max-Age"] = "1000"
-                response["Access-Control-Allow-Headers"] = "*"
+                response = IwaterApi.response_iwater(result, content_type=mock_content_type)
                 return response
             logger.debug(api_name + "接口:最终响应结果：" + str(result))
     except:
         logger.exception(api_name + "接口:GET请求错误如下：")
 
-    # return HttpResponse(result)
-    response = HttpResponse(result, content_type="application/json;charset=UTF-8")
-    response["Access-Control-Allow-Origin"] = '*'
-    response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
-    response["Access-Control-Max-Age"] = "1000"
-    response["Access-Control-Allow-Headers"] = "*"
+    response = IwaterApi.response_iwater(result, content_type="application/json;charset=UTF-8")
     return response
